@@ -78,5 +78,13 @@ The final output of the build process will be an onreaderapp_cap.upgx file packa
 - Ensure Docker is running before executing the scripts.
 - Check that the necessary tools and dependencies are downloaded and accessible.
 
+## WARRANTY DISCLAIMER
+
+This software is provided “as is” without quality check, and there is no warranty that the software will operate without error or interruption or meet any performance standard or other expectation. All warranties, express or implied, including the implied warranties of merchantability, non-infringement, quality, accuracy, and fitness for a particular purpose are expressly disclaimed. The developers of this software are not obligated in any way to provide support or other maintenance with respect to this software.
+
+###LIMITATION OF LIABILITY
+
+The total liability arising out of or related to the use of this software will not exceed the total amount paid by the user for this software, which in this case is zero as the software is provided free of charge. In no event will the developers have liability for any indirect, incidental, special, or consequential damages, even if advised of the possibility of these damages. These limitations will apply notwithstanding any failure of essential purpose of any limited remedy provided.
+
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more details.
