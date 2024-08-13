@@ -1,0 +1,18 @@
+﻿#!/bin/sh
+event=$1
+echo "Customer application upgrade script enters"
+echo "Primary SOP version is $primary_sop_vsn"
+echo "Primary CAP version is $primary_cap_vsn"
+test ! -z $secondary_sop_vsn && echo "Secondary SOP version is $secondary_sop_vsn"
+test ! -z $secondary_cap_vsn && echo "Secondary CAP version is $secondary_cap_vsn"
+if [ $event = "cdr" ] ; then
+	echo "Reader has restored its default configuration"
+elif [ $event = "upg" ] ; then
+	echo "Reader has been upgraded"
+	#logger -s "Reader has been upgraded"
+	cust_dir=$2
+	old_cust_dir=$3
+	# Copy previous to current configuration
+	if [ -f $old_cust_dir/myconfig.json $cust_dir/myconfig.json
+	fi
+fi

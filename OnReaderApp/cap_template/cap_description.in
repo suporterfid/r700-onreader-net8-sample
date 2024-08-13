@@ -1,0 +1,76 @@
+﻿# Upgrade Description File
+#
+# This file contains the settings used by the upgrade generation tool
+# to produce an Impinj firmware upgrade file.
+[Description]
+
+# Version is a 4 part number in decimal with each part limited to
+# 0-255. It is the version of the upgrade file to be generated.
+Version = 1.0.0.1
+
+# Valid Reader Hardware is a string designating the reader models onto which
+# you can load the upgrade.  The following strings are acceptable values for
+# this field:
+#   R700
+#   R700V2
+#   R510
+#   R515
+#   R***
+# The "R***" wildcard indicates that you can load the CAP onto any reader, and
+# effectively bypasses this check.
+Valid Reader Hardware = R700
+
+# File System Layout is an value used by the reader to determine how
+# the upgrade partition should be loaded to flash. Currently the only
+# supported layout version is 10.
+# File System Layout = 10
+
+# Input Directory is the top-level directory of the filesystem to
+# create. The files under this directory will be available on the
+# reader under /cust after the upgrade is loaded.
+Input Directory = /etk/cap
+
+# Encrypt the upgrade filesystem content. Note this will be
+# decrypted when the upgrade file is processed by the reader.
+# The default is 'False' (don't encrypt)
+#Encrypt = True
+
+# Should point to the cert from the key pair used to encrypt the bundle.
+#Recipients = ./<key_dir>/cap_enc.cert.pem
+
+# The above cert.pem can be generated with:
+#
+# openssl req -x509 -newkey rsa:4096 -keyout cap_enc.key.pem -out \
+#   cap_enc.cert.pem -sha256 -days 365
+#
+# Choose any passphrase, you only have to enter it in the next step. Create
+# a p12 bundle:
+#
+# openssl pkcs12 -export -out cap_enc_key-bundle.p12 -in cap_enc.cert.pem \
+#   -inkey cap_enc.key.pem
+#
+# Here, you must define a passphrase for the p12 bundle after entering the pem
+# passphrase.
+#
+# Then upload bundle to the reader:
+#
+# curl -k -u root:impinj -X POST -F "upload=@cap_enc_key-bundle.p12" \
+#   -F"password=<passphrase>" \
+#   https://$READER_IP/api/v1/system/certificates/tls/certs
+#
+# Which should reply with [1] or whatever ID was assigned to the cert.
+# Activate CAP encryption for that cert:
+#
+# curl -k -u root:impinj -X PUT -d "{\"certId\":1}" \
+#   https://$READER_IP/api/v1/system/certificates/tls/services/cap-encryption
+
+# Use the expanded NAND Flash partition sizes available on
+# all Revolution based readers and gateways with PCBAs equal or
+# greater than v5.00.
+# The default is 'False' (build for all PCBAs).
+#ExpandedNAND = True
+
+# Persist a file or directory across a CAP install.  This file or
+# directory will be copied from the existing CAP in to the new CAP
+# during install.  Path is relative to the root of the CAP.
+# Persistent Data = myconfig.json

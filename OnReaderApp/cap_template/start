@@ -1,0 +1,30 @@
+#!/bin/sh
+
+#chown -R root:root *
+chmod 775 /customer/*.sh
+chmod 775 /customer/cust_app_upgrade
+
+cd /customer
+
+(( count = 1 ))
+while true ; do
+	# Check to see whether /customer/OnReaderApp exists
+        if [ -f /customer/OnReaderApp ] ; then
+                # The /customer/OnReaderApp exists, so tes whether it's executable
+                if [ -x /customer/OnReaderApp ] ; then
+                    if [ ! -e /customer/upgrading ]; then
+                            # /customer/OnReaderApp is executable, so run it
+                            appDir=/customer
+                            /customer/OnReaderApp 127.0.0.1
+                            /usr/bin/logger -p user.notice \
+                                    "Starting custom application, count $count."
+                            (( count = count + 1 ))
+                    fi
+                fi
+                        # /customer/OnReaderApp is NOT executable, so wait for a moment
+                 
+		sleep 2
+        else
+                exit 0
+        fi
+done
